@@ -1,0 +1,29 @@
+<div class="post-container">
+	<a name="p<%= post.no %>"></a>
+	<div class="sidearrows">&gt;&gt;</div>
+	<div class="post reply">
+		<div class="post-info">
+			<input type="checkbox" name="useless" />
+			<% if(post.sub) { %>
+				<span class="subject"><%= post.sub %></span>
+			<% } %>
+			<span class="name-block">
+				<span class="name"><%= post.name %></span>
+			</span>
+			<span class="date-time"><%=: post.now %></span>
+			<a class="postnum" href="#p<%= post.no %>" title="Link to this post">No.<%= post.no %></a>
+		</div>
+		<% if(post.tim) { %>
+			<div class="post-file">
+				<div class="file-text">
+					File: <a href="img/<%= post.tim %><%= post.ext %>" target="_blank"><%=: post.filename | truncate %><%= post.ext %></a> (<%=: post.fsize | bytesize %>, <%= post.w %>x<%= post.h %>)
+				</div>
+				<a class="file-thumb" href="img/<%= post.tim %><%= post.ext %>" target="_blank">
+					<img src="img/<%=post.tim%>s.jpg" alt="<%=: post.fsize | bytesize %>" />
+				</a>
+			</div>
+		<% } %>
+
+		<blockquote class="post-message"><%- post.com %></blockquote>
+	</div>
+</div>

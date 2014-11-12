@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>/archive/ - <%= typeof posts[0].sub !== 'undefined' ? posts[0].sub : posts[0].semantic_url %></title>
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body>
+	<header>
+		<h1>/archive/ - Thread Archive</h1>
+		<h2><%= typeof posts[0].sub !== 'undefined' ? posts[0].sub : posts[0].semantic_url %></h2>
+	</header>
+	<hr>
+	<% posts.forEach(function(post, i) { %>
+		<% if(!i) { %>
+			<% include post/op %>
+		<% } else { %>
+			<% include post/reply %>
+		<% } %>
+	<% }); %>
+</body>
+</html>

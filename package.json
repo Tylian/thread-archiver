@@ -1,0 +1,21 @@
+{
+  "name": "thread-archiver",
+  "version": "0.0.1",
+  "description": "Creates a local version of a thread in the folder you specify.",
+  "main": "index.js",
+  "bin":  "./bin/thread-archiver",
+  "dependencies": {
+    "ejs": "^1.0.0",
+    "fs-extra": "^0.12.0",
+    "html-minifier": "^0.6.9",
+    "minimist": "^1.1.0",
+    "promise": "^6.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private": true,
+  "author": "Tylian",
+  "license": "ISC"
+}

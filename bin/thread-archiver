@@ -1,0 +1,48 @@
+#!/usr/bin/env node
+
+var path = require('path')
+  , fs = require('fs')
+  , Promise = require('promise')
+  , archive = require('../lib/archive.js');
+
+var argv = require('minimist')(process.argv.slice(2), {
+	boolean: ['update', 'fetch'],
+	default: {
+		fetch: false,
+		update: false,
+		path: 'archive/'
+	}
+});
+
+var basePath = path.resolve(argv.path);
+
+function fetch(thread) {
+	var match = thread.match(/^https?\:\/\/boards\.4chan\.org\/(\w)\/thread\/(\d+)/i);
+	var thread = parseInt(match[2]);
+	var board = match[1];
+
+	return archive.fetch(board, thread, basePath)
+}
+
+function update(jsonPath) {
+	return archive.update(path.join(basePath, jsonPath));
+}
+
+var promises = argv._.map(function(item) {
+	if(argv.fetch) {
+		return fetch(item);
+	} else if(argv.update) {
+		return update(item);
+	}
+
+	return fetch(item)
+		.then(function() {
+			var match = item.match(/^https?\:\/\/boards\.4chan\.org\/(\w)\/thread\/(\d+)/i);
+			var thread = parseInt(match[2]);
+
+			return thread + '.json';
+		}).then(update);
+});
+Promise.all(promises).done(function() {
+	console.log('Done!');
+});
